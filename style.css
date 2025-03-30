@@ -1,0 +1,194 @@
+/* Basic reset and body styling */
+body {
+    font-family: sans-serif; /* Consider importing a pixel font later */
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* Updated by JS */
+    color: #fff;
+    overflow: hidden; /* Prevent scrollbars */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Styles for all scenes */
+.scene {
+    width: 90%;
+    max-width: 900px;
+    height: 90vh; /* Give scenes a defined height */
+    max-height: 700px; /* Limit height */
+    text-align: center;
+    border: 2px solid #fff;
+    padding: 20px; /* Default padding */
+    background-color: rgba(68, 68, 68, 0.9); /* Main background */
+    box-sizing: border-box;
+    position: relative; /* Needed for absolute positioning children */
+    display: flex; /* Use flexbox by default for internal layout */
+    flex-direction: column; /* Stack children vertically by default */
+    align-items: center; /* Center children horizontally by default */
+}
+
+/* --- Shared UI Elements (Top Bar) --- */
+#game-ui {
+    position: absolute; /* Position relative to viewport */
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px); /* Full width minus left/right space */
+    display: none; /* Managed by JS */
+    justify-content: space-between; /* Push elements apart */
+    align-items: center;
+    z-index: 10; /* Stay on top */
+    pointer-events: none; /* Allow clicks through */
+}
+
+#livesDisplay, #scoreDisplay, #playerInfoDisplay {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 15px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #FFD700; /* Gold */
+    white-space: nowrap;
+}
+
+#playerInfoDisplay {
+    /* Absolute positioning to center it WITHIN the flex container */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto; /* Re-enable pointer events if needed */
+}
+
+/* --- Title Scene Specific Styles --- */
+#scene-title {
+    gap: 15px; /* Space between elements */
+    height: auto; /* Allow height to adjust */
+    max-height: none;
+    justify-content: center; /* Center content vertically */
+}
+
+#main-title {
+    font-size: 3em; margin-bottom: 10px; color: #ffd700; text-shadow: 2px 2px #000;
+}
+.input-group {
+    display: flex; align-items: center; gap: 10px; width: 80%; justify-content: center;
+}
+.input-group label { width: 120px; text-align: right; flex-shrink: 0; }
+.input-group input[type=text] {
+    padding: 5px 8px; border: 2px solid #fff; background-color: #555; color: #fff; font-size: 1em; width: 150px;
+}
+
+.gender-select label { width: 120px; }
+.gender-select > div { display: flex; gap: 15px; align-items: center; }
+.gender-select input[type="radio"] { margin-right: 3px; cursor: pointer;}
+.gender-select label[for^="gender"] { width: auto; text-align: left; cursor: pointer;}
+
+.color-selector { margin-top: 15px; padding: 15px; border: 1px dashed #aaa; background-color: rgba(0,0,0,.1); width: 80%; }
+.color-selector p { margin-top: 0; font-weight: bold; }
+.slider-group { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 5px; }
+.slider-group label { width: 20px; font-weight: bold; }
+.slider-group input[type=range] { flex-grow: 1; max-width: 200px; cursor: pointer; }
+.slider-group span { width: 30px; text-align: right; font-family: monospace; background-color: #222; padding: 2px 4px; border-radius: 3px; }
+#startButton { font-size: 1.2em; padding: 10px 25px; margin-top: 20px; background-color: #4caf50; color: #fff; border: 2px solid #fff; border-radius: 5px; cursor: pointer; font-weight: bold; text-shadow: 1px 1px #000; }
+#startButton:hover { background-color: #45a049; }
+#startButton:active { background-color: #3e8e41; transform: translateY(1px); }
+
+
+/* --- Instrument Select Scene Styles --- */
+#scene-instrument-select {
+    justify-content: flex-start; /* Align items to top */
+    gap: 15px; /* Space between sections */
+}
+
+#concert-band-animation {
+    width: 90%; flex-grow: 1; flex-shrink: 1; flex-basis: 30%; /* ~Top third */
+    max-height: 35vh; min-height: 150px; display: flex; justify-content: center;
+    align-items: center; overflow: hidden;
+}
+#concert-band-animation img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+
+#instrument-instruction {
+    font-size: 1.4em; color: #FFD700; font-weight: bold; margin-top: auto; margin-bottom: 10px;
+    flex-grow: 0; flex-shrink: 0;
+}
+#instrument-selector {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;
+    width: 100%; max-height: 40%; min-height: 150px; overflow-y: auto; border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px; background-color: rgba(0, 0, 0, 0.1); flex-grow: 0; flex-shrink: 0;
+}
+.instrument-option { background-color: rgba(0, 0, 0, 0.2); border: 2px solid #aaa; border-radius: 8px; padding: 8px; width: 110px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.instrument-option:hover { background-color: rgba(255, 255, 255, 0.1); border-color: #fff; }
+.instrument-option img { width: 50px; height: 50px; margin-bottom: 5px; object-fit: contain; }
+.instrument-option p { margin: 0; font-size: 0.85em; font-weight: bold; }
+
+
+/* --- Audition Stage Scene Styles --- */
+#scene-audition-stage {
+    /* Keeps flex column layout for main content */
+    /* justify-content adjusted for main content wrapper below */
+    align-items: center; /* Center main content horizontally */
+    /* Add padding-right to prevent overlap with absolutely positioned judges */
+    padding-right: calc(25% + 30px); /* 25% width + 15px right offset + 15px gap */
+}
+
+/* Wrapper for Avatar + Instructions */
+.main-audition-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items inside wrapper */
+    width: 100%; /* Take up available space left by padding */
+    height: 100%; /* Allow flex distribution */
+    justify-content: space-around; /* Distribute space between avatar/instructions */
+    gap: 15px;
+}
+
+#avatar-animation-area {
+    width: 300px; height: 300px; background-color: rgba(43, 43, 43, 0.5); /* Slightly transparent */
+    border: 1px solid #777; margin-top: 10px; display: flex; justify-content: center;
+    align-items: center; overflow: hidden; flex-shrink: 0; /* Prevent shrinking */
+}
+#avatar-sprite { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+
+#instruction-section {
+    min-height: 100px; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; padding: 10px; background-color: rgba(0, 0, 0, 0.4); /* Darker background */
+    border-radius: 5px; width: 90%; /* Relative to its container */
+    margin-bottom: 10px; flex-shrink: 0; /* Prevent shrinking */
+}
+/* Gameplay Instruction Text */
+.instruction-text { font-size: 1.1em; color: #ffffff; background-color: rgba(0, 0, 0, 0.4); padding: 8px 15px; border-radius: 5px; margin-bottom: 15px; min-height: 1.5em; display: block; }
+/* Length Prompt Area */
+#length-prompt { display: flex; align-items: center; gap: 5px; margin-top: 5px;}
+#length-prompt label { margin-right: 5px; font-weight: bold; white-space: nowrap;}
+#length-prompt input[type="number"] { width: 45px; padding: 5px; text-align: center; border: 1px solid #aaa; background-color: #eee; color: #333; font-size: 1em; margin-right: 5px; }
+#length-prompt button { padding: 6px 15px; font-size: 1em; cursor: pointer; background-color: #f0ad4e; color: #333; border: 1px solid #eea236; border-radius: 4px; font-weight: bold; }
+#length-prompt button:hover { background-color: #ec971f; }
+/* Feedback/Result Text Area */
+#feedback-text { font-size: 1.3em; font-weight: bold; color: #FFD700; margin: 5px 0; min-height: 1.5em; }
+/* Change Instrument Prompt Area */
+#change-instrument-prompt { margin-top: 5px; }
+#change-instrument-prompt p { font-size: 1.3em; font-weight: bold; color: #FFD700; margin: 5px 0; }
+
+/* Judges Area Positioning */
+#judges-area {
+    position: absolute; /* Position relative to scene */
+    right: 22px; /* Space from right edge */
+    bottom: 25px; /* Space from bottom edge */
+    width: 38%; /* Approx width relative to scene */
+    max-width: 400px; /* Max pixel width */
+    height: auto; /* Maintain aspect ratio */
+    /* max-height: 40%; */ /* Optional height limit */
+    border: none; background-color: transparent;
+}
+#judges-sprite { display: block; width: 100%; height: auto; object-fit: contain; }
+
+
+/* --- Game Over Scene Styles --- */
+#scene-game-over { justify-content: center; gap: 20px; }
+#scene-game-over h1 { font-size: 3em; color: #ff4d4d; text-shadow: 2px 2px #000; margin-bottom: 0;}
+#scene-game-over p { font-size: 1.2em; margin: 5px 0;}
+#scene-game-over h2 { margin-bottom: 10px; color: #FFD700;}
+#highScoreList { list-style: decimal; padding-left: 0; margin: 0 auto; max-width: 350px; text-align: left; }
+#highScoreList li { margin-bottom: 8px; font-size: 1.1em; }

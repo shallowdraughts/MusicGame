@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMIS Audition Challenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Shared UI Elements (Score/Lives/PlayerInfo) -->
+    <div id="game-ui" style="display: none;">
+        <div id="livesDisplay">Lives: 3</div>
+        <div id="playerInfoDisplay">Player: - | School: -</div> <!-- Updated Separator -->
+        <div id="scoreDisplay">Score: 0</div>
+    </div>
+
+    <!-- Container for the Title Page Scene -->
+    <div id="scene-title" class="scene">
+        <h1 id="main-title">AMIS 2025</h1>
+
+        <!-- Player Info -->
+        <div class="input-group">
+            <label for="playerName">Player Name:</label>
+            <input type="text" id="playerName" name="playerName" maxlength="20" placeholder="Enter Name">
+        </div>
+        <div class="input-group">
+            <label for="schoolInitials">School Initials:</label>
+            <input type="text" id="schoolInitials" name="schoolInitials" maxlength="4" placeholder="ABCD">
+        </div>
+
+        <!-- Hair Length Selection -->
+        <div class="input-group gender-select">
+            <label>Hair Length:</label>
+            <div>
+                <input type="radio" id="genderMale" name="playerGender" value="male" checked>
+                <label for="genderMale">Short</label>
+                <input type="radio" id="genderFemale" name="playerGender" value="female">
+                <label for="genderFemale">Long</label>
+            </div>
+        </div>
+
+        <!-- Background Color Selector -->
+        <div class="color-selector">
+            <p>Select Background Color:</p>
+            <div class="slider-group">
+                <label for="bgColorR">R:</label>
+                <input type="range" id="bgColorR" name="bgColorR" min="0" max="255" value="51">
+                <span id="rValue">51</span>
+            </div>
+            <div class="slider-group">
+                <label for="bgColorG">G:</label>
+                <input type="range" id="bgColorG" name="bgColorG" min="0" max="255" value="51">
+                <span id="gValue">51</span>
+            </div>
+            <div class="slider-group">
+                <label for="bgColorB">B:</label>
+                <input type="range" id="bgColorB" name="bgColorB" min="0" max="255" value="51">
+                <span id="bValue">51</span>
+            </div>
+        </div>
+        <button id="startButton">Start Game</button>
+    </div> <!-- End of scene-title -->
+
+    <!-- Container for the Instrument Selection Scene -->
+    <div id="scene-instrument-select" class="scene" style="display: none;">
+        <div id="concert-band-animation">
+            <img src="assets/concert_band_idle.gif" alt="Concert Band Animation">
+        </div>
+        <p id="instrument-instruction">Choose Your Instrument (Click or Press 1-0)</p>
+        <div id="instrument-selector">
+            <!-- Instrument options populated by JS -->
+        </div>
+    </div> <!-- End of scene-instrument-select -->
+
+    <!-- Container for the Audition Stage Scene -->
+    <div id="scene-audition-stage" class="scene" style="display: none;">
+
+        <!-- Wrapper for main content (Avatar + Instructions) -->
+        <div class="main-audition-content">
+            <!-- Central Avatar Animation Area -->
+            <div id="avatar-animation-area">
+                 <img id="avatar-sprite" src="assets/placeholder_avatar_neutral.png" alt="Instrument Avatar">
+            </div>
+
+            <!-- Instruction Section -->
+            <div id="instruction-section">
+                 <!-- Gameplay Instruction Text -->
+                 <p id="gameplay-instruction" class="instruction-text">Select melody length (3-9 notes) and click 'Set Length'.</p>
+
+                 <!-- Length Prompt Container -->
+                <div id="length-prompt">
+                     <label for="melodyLength">How long? (3-9):</label>
+                     <input type="number" id="melodyLength" name="melodyLength" min="3" max="9" value="3">
+                     <button id="setLengthButton">Set Length</button>
+                </div>
+
+                <!-- Feedback Text Container (for results, etc.) -->
+                <div id="feedback-text" style="display: none;"> </div>
+
+                <!-- Change Instrument Prompt Container -->
+                <div id="change-instrument-prompt" style="display: none;">
+                    <p id="change-instrument-text">Correct! Change Instrument? (Y/N)</p>
+                </div>
+            </div> <!-- End of instruction-section -->
+        </div> <!-- End of main-audition-content -->
+
+        <!-- Judges Area (Positioned absolutely via CSS) -->
+        <div id="judges-area">
+             <img id="judges-sprite" src="assets/judges_idle.gif" alt="Judges">
+        </div>
+
+    </div> <!-- End of scene-audition-stage -->
+
+    <!-- Container for the Game Over Scene -->
+    <div id="scene-game-over" class="scene" style="display: none;">
+        <h1>GAME OVER</h1>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <h2>High Scores</h2>
+        <ol id="highScoreList">
+            <!-- High scores will be added here by JS -->
+            <li>Loading...</li>
+        </ol>
+        <p>(Press Enter to Play Again)</p>
+    </div> <!-- End of scene-game-over -->
+
+
+    <!-- Link to JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
